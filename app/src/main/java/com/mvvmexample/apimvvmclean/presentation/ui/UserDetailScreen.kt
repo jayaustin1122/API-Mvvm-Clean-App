@@ -5,11 +5,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mvvmexample.apimvvmclean.domain.model.User
+import com.mvvmexample.apimvvmclean.presentation.viewmodel.UserDetailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,14 +66,14 @@ fun UserDetailContent(user: User) {
             .padding(16.dp)
     ) {
         Text(
-            text = user.name,
+            text = user.username,
             style = MaterialTheme.typography.headlineMedium
         )
         Spacer(modifier = Modifier.height(16.dp))
 
         DetailItem(label = "Email", value = user.email)
         DetailItem(label = "Phone", value = user.phone)
-        DetailItem(label = "Website", value = user.website)
+        DetailItem(label = "Website", value = user.role)
     }
 }
 

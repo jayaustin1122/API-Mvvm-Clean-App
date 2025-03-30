@@ -23,8 +23,8 @@ class UserDetailViewModel @Inject constructor(
     val state: StateFlow<UserDetailState> = _state
 
     init {
-        savedStateHandle.get<String>("userId")?.let { userId ->
-            getUserById(userId.toInt())
+        savedStateHandle.get<Int>("id")?.let { userId ->
+            getUserById(userId)
         }
     }
 

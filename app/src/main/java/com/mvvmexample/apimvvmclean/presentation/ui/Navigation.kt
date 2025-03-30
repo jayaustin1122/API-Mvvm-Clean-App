@@ -1,6 +1,10 @@
 package com.mvvmexample.apimvvmclean.presentation.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,23 +15,27 @@ import androidx.navigation.navArgument
 fun Navigation() {
     val navController = rememberNavController()
 
+    var isDarkTheme by remember { mutableStateOf(false) }
+
     NavHost(
         navController = navController,
-        startDestination = "users"
+        startDestination = Screen.Users.route
     ) {
-        composable("users") {
+        composable(Screen.Users.route) {
             UsersScreen(
-                onUserClick = { userId ->
-                    navController.navigate("user_detail/$userId")
+                isDarkTheme = isDarkTheme,
+                onThemeToggle = { isDarkTheme = it },
+                onUserClick = { id ->
+                    navController.navigate(Screen.UserDetail.createRoute(id))
                 }
             )
         }
 
         composable(
-            route = "user_detail/{userId}",
+            route = Screen.UserDetail.route,
             arguments = listOf(
-                navArgument("userId") {
-                    type = NavType.StringType
+                navArgument("id") {
+                    type = NavType.IntType
                 }
             )
         ) {
