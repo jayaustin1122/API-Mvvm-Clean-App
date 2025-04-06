@@ -5,11 +5,12 @@ import com.mvvmexample.apimvvmclean.domain.model.User
 import com.mvvmexample.apimvvmclean.util.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface UserRepository {
+interface LoginRepository {
 
-    fun getUsers(): Flow<Resource<List<User>>>
+    fun loginUser(username: String, password: String): Flow<Resource<LoginResponse>>
 
-    fun getUserById(id: Int): Flow<Resource<User>>
+    fun isAuthenticated(): Boolean
 
+    fun logout()
 }
 

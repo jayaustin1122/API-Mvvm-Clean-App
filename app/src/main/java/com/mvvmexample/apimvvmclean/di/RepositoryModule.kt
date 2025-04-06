@@ -1,7 +1,9 @@
 package com.mvvmexample.apimvvmclean.di
 
 
+import com.mvvmexample.apimvvmclean.data.repository.LoginRepositoryImpl
 import com.mvvmexample.apimvvmclean.data.repository.UserRepositoryImpl
+import com.mvvmexample.apimvvmclean.domain.repository.LoginRepository
 import com.mvvmexample.apimvvmclean.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -18,4 +20,10 @@ abstract class RepositoryModule {
     abstract fun bindUserRepository(
         userRepositoryImpl: UserRepositoryImpl
     ): UserRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindLoginUserRepository(
+        loginUserRepositoryImpl: LoginRepositoryImpl
+    ): LoginRepository
 }

@@ -1,11 +1,13 @@
 package com.mvvmexample.apimvvmclean.presentation.ui
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -24,6 +26,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.mvvmexample.apimvvmclean.presentation.ui.auth.LogInScreen
 
 @Composable
 fun Navigation() {
@@ -49,7 +52,7 @@ fun Navigation() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Login.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Users.route) {
@@ -84,6 +87,17 @@ fun Navigation() {
             composable(Screen.Profile.route) {
                 ProfileScreen()
             }
+
+            composable(Screen.Login.route) {
+                LogInScreen(
+                    onLoginSuccess = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(Screen.Login.route) { inclusive = true }
+                        }
+                    }
+                )
+            }
+
         }
     }
 }
@@ -122,6 +136,7 @@ fun BottomNavigationBar(navController: NavController) {
 
 @Composable
 fun HomeScreen() {
+    CircularProgressIndicator(modifier = Modifier.fillMaxSize())
     Text("Home Screen")
 }
 
