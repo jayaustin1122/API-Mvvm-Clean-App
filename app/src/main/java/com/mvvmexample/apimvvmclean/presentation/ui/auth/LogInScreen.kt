@@ -3,6 +3,7 @@ package com.mvvmexample.apimvvmclean.presentation.ui.auth
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -24,9 +25,16 @@ fun LogInScreen(
         }
     }
     if (state.isLoading) {
-        CircularProgressIndicator(modifier = Modifier.fillMaxSize())
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize(Alignment.Center)
+        ) {
+            CircularProgressIndicator()
+        }
         return
     }
+
     LaunchedEffect(state.user) {
         if (state.user != null) {
             onLoginSuccess()
