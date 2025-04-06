@@ -77,4 +77,5 @@ dependencies {
     kapt(libs.hilt.android.compiler)
 
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation ("androidx.compose.material:material:1.7.8")
 }

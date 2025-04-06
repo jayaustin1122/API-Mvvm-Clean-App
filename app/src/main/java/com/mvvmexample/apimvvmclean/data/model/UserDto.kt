@@ -26,17 +26,17 @@ data class UserDto(
     val height: Double,
     val weight: Double,
     val eyeColor: String,
-    val hair: Hair,
+    val hair: HairDto,
     val ip: String,
-    val address: Address,
+    val address: AddressDto,
     val macAddress: String,
     val university: String,
-    val bank: Bank,
-    val company: Company,
+    val bank: BankDto,
+    val company: CompanyDto,
     val ein: String,
     val ssn: String,
     val userAgent: String,
-    val crypto: Crypto,
+    val crypto: CryptoDto,
     val role: String,
 )
 data class UsersResponse(
@@ -53,7 +53,7 @@ data class AddressDto(
     val state: String,
     val stateCode: String,
     val postalCode: String,
-    val coordinates: Coordinates,
+    val coordinates: CoordinatesDto,
     val country: String,
 )
 
@@ -74,7 +74,7 @@ data class CompanyDto(
     val department: String,
     val name: String,
     val title: String,
-    val address: Address2,
+    val address: Address2Dto,
 )
 
 data class Address2Dto(
@@ -83,7 +83,7 @@ data class Address2Dto(
     val state: String,
     val stateCode: String,
     val postalCode: String,
-    val coordinates: Coordinates2,
+    val coordinates: Coordinates2Dto,
     val country: String,
 )
 
