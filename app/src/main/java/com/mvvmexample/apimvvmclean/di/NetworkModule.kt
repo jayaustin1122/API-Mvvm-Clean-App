@@ -2,6 +2,7 @@ package com.mvvmexample.apimvvmclean.di
 
 import com.mvvmexample.apimvvmclean.data.remote.ApiService
 import com.mvvmexample.apimvvmclean.data.remote.LoginService
+import com.mvvmexample.apimvvmclean.data.remote.PostService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,6 +55,12 @@ object NetworkModule {
     @Singleton
     fun provideLoginService(retrofit: Retrofit): LoginService {
         return retrofit.create(LoginService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePostsService(retrofit: Retrofit): PostService {
+        return retrofit.create(PostService::class.java)
     }
 
 }

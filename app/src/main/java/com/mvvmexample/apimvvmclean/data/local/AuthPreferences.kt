@@ -23,9 +23,14 @@ class AuthPreferences @Inject constructor(context: Context) {
         }
     }
 
-    fun getAuthToken(): String? {
-        return sharedPreferences.getString("access_token", null)
-    }
+    fun getAuthToken(): String? = sharedPreferences.getString("access_token", null)
+    fun getRefreshToken(): String? = sharedPreferences.getString("refresh_token", null)
+    fun getUsername(): String? = sharedPreferences.getString("username", null)
+    fun getFirstName(): String? = sharedPreferences.getString("first_name", null)
+    fun getLastName(): String? = sharedPreferences.getString("last_name", null)
+    fun getEmail(): String? = sharedPreferences.getString("email", null)
+    fun getImage(): String? = sharedPreferences.getString("image", null)
+
 
     fun clearAuthToken() {
         sharedPreferences.edit().apply {

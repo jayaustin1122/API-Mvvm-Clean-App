@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mvvmexample.apimvvmclean.domain.usecase.GetUsersUseCase
 import com.mvvmexample.apimvvmclean.presentation.state.UsersState
-import com.mvvmexample.apimvvmclean.util.Resource
+import com.mvvmexample.apimvvmclean.util.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,13 +27,13 @@ class UsersViewModel @Inject constructor(
     fun getUsers() {
         getUsersUseCase().onEach { result ->
             when (result) {
-                is Resource.Loading -> {
+                is Response.Loading -> {
                     _state.value = UsersState(isLoading = true)
                 }
-                is Resource.Success -> {
+                is Response.Success -> {
                     _state.value = UsersState(users = result.data ?: emptyList())
                 }
-                is Resource.Error -> {
+                is Response.Error -> {
                     _state.value = UsersState(error = result.message ?: "An unexpected error occurred")
                 }
             }

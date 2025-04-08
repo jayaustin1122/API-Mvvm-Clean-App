@@ -1,15 +1,14 @@
 package com.mvvmexample.apimvvmclean.domain.repository
 
-import com.mvvmexample.apimvvmclean.domain.model.LoginResponse
 import com.mvvmexample.apimvvmclean.domain.model.User
-import com.mvvmexample.apimvvmclean.util.Resource
+import com.mvvmexample.apimvvmclean.util.Response
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    fun getUsers(): Flow<Resource<List<User>>>
+    fun getUsers(): Flow<Response<List<User>>>
 
-    fun getUserById(id: Int): Flow<Resource<User>>
+    fun getUserById(id: Int): Flow<Response<User>>
 
 }
 

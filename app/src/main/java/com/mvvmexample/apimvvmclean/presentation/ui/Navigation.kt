@@ -1,22 +1,20 @@
 package com.mvvmexample.apimvvmclean.presentation.ui
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -27,6 +25,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.mvvmexample.apimvvmclean.presentation.ui.auth.LogInScreen
+import com.mvvmexample.apimvvmclean.presentation.ui.home.HomeScreen
+import com.mvvmexample.apimvvmclean.presentation.ui.profile.ProfileScreen
 
 @Composable
 fun Navigation() {
@@ -135,17 +135,6 @@ fun BottomNavigationBar(navController: NavController) {
 }
 
 @Composable
-fun HomeScreen() {
-    CircularProgressIndicator(modifier = Modifier.fillMaxSize())
-    Text("Home Screen")
-}
-
-@Composable
 fun SettingsScreen() {
     Text("Settings Screen")
-}
-
-@Composable
-fun ProfileScreen() {
-    Text("Profile Screen")
 }

@@ -8,7 +8,10 @@ import com.mvvmexample.apimvvmclean.data.model.Coordinates2Dto
 import com.mvvmexample.apimvvmclean.data.model.CoordinatesDto
 import com.mvvmexample.apimvvmclean.data.model.CryptoDto
 import com.mvvmexample.apimvvmclean.data.model.HairDto
+import com.mvvmexample.apimvvmclean.data.model.ListPostsDto
 import com.mvvmexample.apimvvmclean.data.model.LoginResponseDto
+import com.mvvmexample.apimvvmclean.data.model.PostDto
+import com.mvvmexample.apimvvmclean.data.model.ReactionsDto
 import com.mvvmexample.apimvvmclean.data.model.UserDto
 import com.mvvmexample.apimvvmclean.domain.model.Address
 import com.mvvmexample.apimvvmclean.domain.model.Address2
@@ -18,7 +21,10 @@ import com.mvvmexample.apimvvmclean.domain.model.Coordinates
 import com.mvvmexample.apimvvmclean.domain.model.Coordinates2
 import com.mvvmexample.apimvvmclean.domain.model.Crypto
 import com.mvvmexample.apimvvmclean.domain.model.Hair
+import com.mvvmexample.apimvvmclean.domain.model.ListPosts
 import com.mvvmexample.apimvvmclean.domain.model.LoginResponse
+import com.mvvmexample.apimvvmclean.domain.model.Post
+import com.mvvmexample.apimvvmclean.domain.model.Reactions
 import com.mvvmexample.apimvvmclean.domain.model.User
 
 fun UserDto.toDomainModel(): User {

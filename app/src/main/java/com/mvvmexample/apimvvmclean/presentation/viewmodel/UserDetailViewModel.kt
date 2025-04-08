@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mvvmexample.apimvvmclean.domain.usecase.GetUserByIdUseCase
 import com.mvvmexample.apimvvmclean.presentation.state.UserDetailState
-import com.mvvmexample.apimvvmclean.util.Resource
+import com.mvvmexample.apimvvmclean.util.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,13 +31,13 @@ class UserDetailViewModel @Inject constructor(
     private fun getUserById(id: Int) {
         getUserByIdUseCase(id).onEach { result ->
             when (result) {
-                is Resource.Loading -> {
+                is Response.Loading -> {
                     _state.value = UserDetailState(isLoading = true)
                 }
-                is Resource.Success -> {
+                is Response.Success -> {
                     _state.value = UserDetailState(user = result.data)
                 }
-                is Resource.Error -> {
+                is Response.Error -> {
                     _state.value = UserDetailState(error = result.message ?: "An unexpected error occurred")
                 }
             }

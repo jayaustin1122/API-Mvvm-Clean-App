@@ -3,7 +3,7 @@ package com.mvvmexample.apimvvmclean.presentation.ui.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mvvmexample.apimvvmclean.domain.usecase.LoginUseCase
-import com.mvvmexample.apimvvmclean.util.Resource
+import com.mvvmexample.apimvvmclean.util.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,19 +23,19 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             loginUseCase(username, password).collect { result ->
                 when (result) {
-                    is Resource.Loading -> {
+                    is Response.Loading -> {
                         _uiState.update {
                             it.copy(isLoading = true, error = null, user = null)
                         }
                     }
 
-                    is Resource.Success -> {
+                    is Response.Success -> {
                         _uiState.update {
                             it.copy(isLoading = false, user = result.data, error = null)
                         }
                     }
 
-                    is Resource.Error -> {
+                    is Response.Error -> {
                         _uiState.update {
                             it.copy(isLoading = false, error = result.message, user = null)
                         }
