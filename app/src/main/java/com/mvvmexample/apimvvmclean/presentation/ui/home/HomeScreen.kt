@@ -1,28 +1,39 @@
 package com.mvvmexample.apimvvmclean.presentation.ui.home
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.mvvmexample.apimvvmclean.domain.model.ListPosts
-import com.mvvmexample.apimvvmclean.domain.model.Post
+import com.mvvmexample.apimvvmclean.presentation.ui.home.components.AppBar
+import com.mvvmexample.apimvvmclean.presentation.ui.home.components.PostList
 
 @Composable
 fun HomeScreen(
@@ -30,247 +41,40 @@ fun HomeScreen(
 ) {
     val postsState by viewModel.state.collectAsState()
 
-    LaunchedEffect(key1 = true) {
-        viewModel.getAllPosts()
-    }
-
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color(0xFFF0F2F5) // Facebook background color
+        color = Color(0xFFF0F2F5)
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            // App Bar
             AppBar()
 
-            // Content
             when {
                 postsState.isLoading -> {
                     LoadingView()
                 }
+
                 postsState.error.isNotBlank() -> {
                     ErrorView(postsState.error)
                 }
+
                 postsState.posts.isNotEmpty() -> {
-                    PostList(posts = postsState.posts)
+                    postsState.comment?.let {
+                        PostList(
+                            posts = postsState.posts,
+                            selectedPostId = postsState.selectedPostId,
+                            comment = it,
+                            isLoadingComments = postsState.isLoadingComments,
+                            onPostClick = { postId -> viewModel.toggleCommentVisibility(postId) },
+                            onLikeClick = { postId -> viewModel.likePost(postId) }
+                        )
+                    }
                 }
+
                 else -> {
                     EmptyView()
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun AppBar() {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = Color.White,
-        shadowElevation = 4.dp
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = "SocialFeed",
-                fontWeight = FontWeight.Bold,
-                fontSize = 22.sp,
-                color = Color(0xFF1877F2) // Facebook blue
-            )
-
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search",
-                    tint = Color.Gray
-                )
-                Icon(
-                    imageVector = Icons.Default.Notifications,
-                    contentDescription = "Notifications",
-                    tint = Color.Gray
-                )
-                Icon(
-                    imageVector = Icons.Default.Email,
-                    contentDescription = "Messages",
-                    tint = Color.Gray
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun PostList(posts: List<ListPosts>) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 8.dp)
-    ) {
-        items(posts) { post ->
-            PostCard(post = post)
-        }
-    }
-}
-
-@Composable
-fun PostCard(post: ListPosts) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp),
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        )
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            // User info header
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // User avatar placeholder
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(Color(0xFF1877F2))
-                ) {
-                    Text(
-                        text = "U${post.userID}",
-                        color = Color.White,
-                        modifier = Modifier.align(Alignment.Center),
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(12.dp))
-
-                Column {
-                    Text(
-                        text = "User ${post.userID}",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
-                    )
-
-                    Text(
-                        text = "${post.views} views",
-                        fontSize = 12.sp,
-                        color = Color.Gray
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // Post title
-            Text(
-                text = post.title,
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Post body
-            Text(
-                text = post.body,
-                fontSize = 14.sp,
-                color = Color.DarkGray,
-                maxLines = 5,
-                overflow = TextOverflow.Ellipsis
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Tags
-            if (post.tags.isNotEmpty()) {
-                TagsRow(tags = post.tags)
-                Spacer(modifier = Modifier.height(12.dp))
-            }
-
-            // Reactions count
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ThumbUp,
-                        contentDescription = "Likes",
-                        tint = Color(0xFF1877F2),
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "${post.reactions.likes}",
-                        fontSize = 12.sp,
-                        color = Color.Gray
-                    )
-
-                    Spacer(modifier = Modifier.width(12.dp))
-
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Dislikes",
-                        tint = Color.Red,
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "${post.reactions.dislikes}",
-                        fontSize = 12.sp,
-                        color = Color.Gray
-                    )
-                }
-
-                Text(
-                    text = "${post.views} views",
-                    fontSize = 12.sp,
-                    color = Color.Gray
-                )
-            }
-
-            Divider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 12.dp),
-                color = Color.LightGray
-            )
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                ActionButton(
-                    icon = Icons.Default.ThumbUp,
-                    text = "Like",
-                    onClick = { /* Handle like action */ }
-                )
-
-                ActionButton(
-                    icon = Icons.Default.Email,
-                    text = "Comment",
-                    onClick = { /* Handle comment action */ }
-                )
-
-                ActionButton(
-                    icon = Icons.Default.Share,
-                    text = "Share",
-                    onClick = { /* Handle share action */ }
-                )
             }
         }
     }

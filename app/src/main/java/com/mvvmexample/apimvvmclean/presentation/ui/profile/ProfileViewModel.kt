@@ -3,7 +3,7 @@ package com.mvvmexample.apimvvmclean.presentation.ui.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mvvmexample.apimvvmclean.data.local.AuthPreferences
-import com.mvvmexample.apimvvmclean.data.model.LoginResponseDto
+import com.mvvmexample.apimvvmclean.data.modelDto.LoginResponseDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -2,7 +2,7 @@ package com.mvvmexample.apimvvmclean.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.mvvmexample.apimvvmclean.data.model.LoginResponseDto
+import com.mvvmexample.apimvvmclean.data.modelDto.LoginResponseDto
 import javax.inject.Inject
 
 class AuthPreferences @Inject constructor(context: Context) {

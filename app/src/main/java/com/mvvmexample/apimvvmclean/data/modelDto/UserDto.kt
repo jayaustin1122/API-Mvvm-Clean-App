@@ -1,13 +1,4 @@
-package com.mvvmexample.apimvvmclean.data.model
-
-import com.mvvmexample.apimvvmclean.domain.model.Address
-import com.mvvmexample.apimvvmclean.domain.model.Address2
-import com.mvvmexample.apimvvmclean.domain.model.Bank
-import com.mvvmexample.apimvvmclean.domain.model.Company
-import com.mvvmexample.apimvvmclean.domain.model.Coordinates
-import com.mvvmexample.apimvvmclean.domain.model.Coordinates2
-import com.mvvmexample.apimvvmclean.domain.model.Crypto
-import com.mvvmexample.apimvvmclean.domain.model.Hair
+package com.mvvmexample.apimvvmclean.data.modelDto
 
 data class UserDto(
     val id: Int,

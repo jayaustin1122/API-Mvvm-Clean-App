@@ -1,9 +1,11 @@
 package com.mvvmexample.apimvvmclean.di
 
 
+import com.mvvmexample.apimvvmclean.data.repository.CommentByIdRepositoryImpl
 import com.mvvmexample.apimvvmclean.data.repository.GetAllPostsRepositoryImpl
 import com.mvvmexample.apimvvmclean.data.repository.LoginRepositoryImpl
 import com.mvvmexample.apimvvmclean.data.repository.UserRepositoryImpl
+import com.mvvmexample.apimvvmclean.domain.repository.CommentByIdRepository
 import com.mvvmexample.apimvvmclean.domain.repository.LoginRepository
 import com.mvvmexample.apimvvmclean.domain.repository.PostsRepository
 import com.mvvmexample.apimvvmclean.domain.repository.UserRepository
@@ -34,4 +36,10 @@ abstract class RepositoryModule {
     abstract fun bindGetAllPosts(
         getAllPostsRepositoryImpl: GetAllPostsRepositoryImpl
     ): PostsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindGetAllCommentById(
+        getCommentByIdRepositoryImpl: CommentByIdRepositoryImpl
+    ): CommentByIdRepository
 }

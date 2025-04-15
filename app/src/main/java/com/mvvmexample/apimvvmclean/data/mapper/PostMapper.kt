@@ -1,8 +1,8 @@
 package com.mvvmexample.apimvvmclean.data.mapper
 
-import com.mvvmexample.apimvvmclean.data.model.ListPostsDto
-import com.mvvmexample.apimvvmclean.data.model.PostDto
-import com.mvvmexample.apimvvmclean.data.model.ReactionsDto
+import com.mvvmexample.apimvvmclean.data.modelDto.ListPostsDto
+import com.mvvmexample.apimvvmclean.data.modelDto.PostDto
+import com.mvvmexample.apimvvmclean.data.modelDto.ReactionsDto
 import com.mvvmexample.apimvvmclean.domain.model.ListPosts
 import com.mvvmexample.apimvvmclean.domain.model.Post
 import com.mvvmexample.apimvvmclean.domain.model.Reactions

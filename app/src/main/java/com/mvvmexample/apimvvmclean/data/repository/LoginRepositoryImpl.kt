@@ -2,7 +2,7 @@ package com.mvvmexample.apimvvmclean.data.repository
 
 import com.mvvmexample.apimvvmclean.data.local.AuthPreferences
 import com.mvvmexample.apimvvmclean.data.mapper.toDomainModel
-import com.mvvmexample.apimvvmclean.data.model.LoginRequestDto
+import com.mvvmexample.apimvvmclean.data.modelDto.LoginRequestDto
 import com.mvvmexample.apimvvmclean.data.remote.LoginService
 import com.mvvmexample.apimvvmclean.domain.model.LoginResponse
 import com.mvvmexample.apimvvmclean.domain.repository.LoginRepository

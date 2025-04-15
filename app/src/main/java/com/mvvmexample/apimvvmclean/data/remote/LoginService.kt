@@ -1,7 +1,7 @@
 package com.mvvmexample.apimvvmclean.data.remote
 
-import com.mvvmexample.apimvvmclean.data.model.LoginRequestDto
-import com.mvvmexample.apimvvmclean.data.model.LoginResponseDto
+import com.mvvmexample.apimvvmclean.data.modelDto.LoginRequestDto
+import com.mvvmexample.apimvvmclean.data.modelDto.LoginResponseDto
 import retrofit2.http.Body
 import retrofit2.http.POST
 

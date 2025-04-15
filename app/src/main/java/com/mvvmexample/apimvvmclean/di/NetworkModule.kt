@@ -1,6 +1,7 @@
 package com.mvvmexample.apimvvmclean.di
 
 import com.mvvmexample.apimvvmclean.data.remote.ApiService
+import com.mvvmexample.apimvvmclean.data.remote.CommentService
 import com.mvvmexample.apimvvmclean.data.remote.LoginService
 import com.mvvmexample.apimvvmclean.data.remote.PostService
 import dagger.Module
@@ -61,6 +62,12 @@ object NetworkModule {
     @Singleton
     fun providePostsService(retrofit: Retrofit): PostService {
         return retrofit.create(PostService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCommentByIdService(retrofit: Retrofit):CommentService{
+        return retrofit.create(CommentService::class.java)
     }
 
 }

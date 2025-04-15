@@ -1,4 +1,4 @@
-package com.mvvmexample.apimvvmclean.data.model
+package com.mvvmexample.apimvvmclean.data.modelDto
 
 data class PostDto (
     val posts: List<ListPostsDto>

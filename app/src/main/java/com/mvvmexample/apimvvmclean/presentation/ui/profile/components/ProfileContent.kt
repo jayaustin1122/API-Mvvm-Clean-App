@@ -29,7 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.mvvmexample.apimvvmclean.data.model.LoginResponseDto
+import com.mvvmexample.apimvvmclean.data.modelDto.LoginResponseDto
 
 
 @Composable
