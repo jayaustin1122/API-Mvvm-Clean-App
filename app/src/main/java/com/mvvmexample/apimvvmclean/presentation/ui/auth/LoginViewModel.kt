@@ -3,7 +3,7 @@ package com.mvvmexample.apimvvmclean.presentation.ui.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mvvmexample.apimvvmclean.domain.usecase.LoginUseCase
-import com.mvvmexample.apimvvmclean.util.Response
+import com.mvvmexample.apimvvmclean.common.util.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

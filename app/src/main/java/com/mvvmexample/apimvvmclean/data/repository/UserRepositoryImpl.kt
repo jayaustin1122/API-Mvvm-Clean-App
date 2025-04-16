@@ -4,7 +4,7 @@ import com.mvvmexample.apimvvmclean.data.mapper.toDomainModel
 import com.mvvmexample.apimvvmclean.data.remote.ApiService
 import com.mvvmexample.apimvvmclean.domain.model.User
 import com.mvvmexample.apimvvmclean.domain.repository.UserRepository
-import com.mvvmexample.apimvvmclean.util.Response
+import com.mvvmexample.apimvvmclean.common.util.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

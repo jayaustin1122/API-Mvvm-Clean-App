@@ -1,10 +1,10 @@
-package com.mvvmexample.apimvvmclean.presentation.viewmodel
+package com.mvvmexample.apimvvmclean.presentation.ui.user_screen.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mvvmexample.apimvvmclean.domain.usecase.GetUsersUseCase
 import com.mvvmexample.apimvvmclean.presentation.state.UsersState
-import com.mvvmexample.apimvvmclean.util.Response
+import com.mvvmexample.apimvvmclean.common.util.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

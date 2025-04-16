@@ -1,4 +1,4 @@
-package com.mvvmexample.apimvvmclean.presentation.ui
+package com.mvvmexample.apimvvmclean.presentation.ui.user_screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mvvmexample.apimvvmclean.domain.model.User
-import com.mvvmexample.apimvvmclean.presentation.viewmodel.UserDetailViewModel
+import com.mvvmexample.apimvvmclean.presentation.ui.user_screen.viewmodel.UserDetailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

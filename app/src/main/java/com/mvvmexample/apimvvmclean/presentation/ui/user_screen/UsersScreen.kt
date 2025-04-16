@@ -1,4 +1,4 @@
-package com.mvvmexample.apimvvmclean.presentation.ui
+package com.mvvmexample.apimvvmclean.presentation.ui.user_screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -10,9 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -21,14 +19,17 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mvvmexample.apimvvmclean.R
+import com.mvvmexample.apimvvmclean.common.composables.ErrorView
+import com.mvvmexample.apimvvmclean.common.composables.LoadingView
+import com.mvvmexample.apimvvmclean.common.util.ThemeToggleButton
 import com.mvvmexample.apimvvmclean.domain.model.User
-import com.mvvmexample.apimvvmclean.presentation.viewmodel.UsersViewModel
-import com.mvvmexample.apimvvmclean.util.ThemeToggleButton
+import com.mvvmexample.apimvvmclean.presentation.ui.user_screen.viewmodel.UsersViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,18 +59,11 @@ fun UsersScreen(
                 .padding(paddingValues)
         ) {
             if (state.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                LoadingView()
             } else if (state.error.isNotEmpty()) {
-                Column(
-                    modifier = Modifier.align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = state.error)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Button(onClick = { viewModel.getUsers() }) {
-                        Text(text = "Retry")
-                    }
-                }
+                ErrorView(
+                    onClickRetry = { viewModel.getUsers() }, state.error
+                )
             } else {
                 UserList(
                     isDarkTheme,

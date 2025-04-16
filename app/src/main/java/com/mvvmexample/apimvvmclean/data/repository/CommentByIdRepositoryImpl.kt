@@ -3,9 +3,8 @@ package com.mvvmexample.apimvvmclean.data.repository
 import com.mvvmexample.apimvvmclean.data.mapper.toDomainModel
 import com.mvvmexample.apimvvmclean.data.remote.CommentService
 import com.mvvmexample.apimvvmclean.domain.model.Comment
-import com.mvvmexample.apimvvmclean.domain.model.User
 import com.mvvmexample.apimvvmclean.domain.repository.CommentByIdRepository
-import com.mvvmexample.apimvvmclean.util.Response
+import com.mvvmexample.apimvvmclean.common.util.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

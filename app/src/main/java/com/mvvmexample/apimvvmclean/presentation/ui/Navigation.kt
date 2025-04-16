@@ -27,6 +27,8 @@ import androidx.navigation.navArgument
 import com.mvvmexample.apimvvmclean.presentation.ui.auth.LogInScreen
 import com.mvvmexample.apimvvmclean.presentation.ui.home.HomeScreen
 import com.mvvmexample.apimvvmclean.presentation.ui.profile.ProfileScreen
+import com.mvvmexample.apimvvmclean.presentation.ui.user_screen.UserDetailScreen
+import com.mvvmexample.apimvvmclean.presentation.ui.user_screen.UsersScreen
 
 @Composable
 fun Navigation() {
@@ -34,10 +36,10 @@ fun Navigation() {
     var isDarkTheme by remember { mutableStateOf(false) }
 
     val bottomBarScreens = listOf(
-        Screen.Home.route,
-        Screen.Users.route,
-        Screen.Settings.route,
-        Screen.Profile.route
+        Screens.Home.route,
+        Screens.Users.route,
+        Screens.Settings.route,
+        Screens.Profile.route
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -52,25 +54,25 @@ fun Navigation() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screens.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Screen.Users.route) {
+            composable(Screens.Users.route) {
                 UsersScreen(
                     isDarkTheme = isDarkTheme,
                     onThemeToggle = { isDarkTheme = it },
                     onUserClick = { id ->
-                        navController.navigate(Screen.UserDetail.createRoute(id))
+                        navController.navigate(Screens.UserDetail.createRoute(id))
                     }
                 )
             }
 
-            composable(Screen.Home.route) {
+            composable(Screens.Home.route) {
                 HomeScreen()
             }
 
             composable(
-                route = Screen.UserDetail.route,
+                route = Screens.UserDetail.route,
                 arguments = listOf(navArgument("id") { type = NavType.IntType })
             ) {
                 UserDetailScreen(
@@ -80,19 +82,19 @@ fun Navigation() {
                 )
             }
 
-            composable(Screen.Settings.route) {
+            composable(Screens.Settings.route) {
                 SettingsScreen()
             }
 
-            composable(Screen.Profile.route) {
+            composable(Screens.Profile.route) {
                 ProfileScreen()
             }
 
-            composable(Screen.Login.route) {
+            composable(Screens.Login.route) {
                 LogInScreen(
                     onLoginSuccess = {
-                        navController.navigate(Screen.Home.route) {
-                            popUpTo(Screen.Login.route) { inclusive = true }
+                        navController.navigate(Screens.Home.route) {
+                            popUpTo(Screens.Login.route) { inclusive = true }
                         }
                     }
                 )
@@ -105,10 +107,10 @@ fun Navigation() {
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
-        Screen.Home to Icons.Default.Home,
-        Screen.Users to Icons.AutoMirrored.Filled.List,
-        Screen.Settings to Icons.Default.Settings,
-        Screen.Profile to Icons.Default.Person
+        Screens.Home to Icons.Default.Home,
+        Screens.Users to Icons.AutoMirrored.Filled.List,
+        Screens.Settings to Icons.Default.Settings,
+        Screens.Profile to Icons.Default.Person
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()

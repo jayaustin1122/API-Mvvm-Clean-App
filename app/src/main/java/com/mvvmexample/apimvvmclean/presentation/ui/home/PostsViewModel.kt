@@ -3,9 +3,11 @@ package com.mvvmexample.apimvvmclean.presentation.ui.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mvvmexample.apimvvmclean.domain.model.ListPosts
+import com.mvvmexample.apimvvmclean.domain.usecase.AddPostsUseCase
 import com.mvvmexample.apimvvmclean.domain.usecase.GetAllPostsUseCase
 import com.mvvmexample.apimvvmclean.domain.usecase.GetCommentByIdUseCase
-import com.mvvmexample.apimvvmclean.util.Response
+import com.mvvmexample.apimvvmclean.common.util.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PostsViewModel @Inject constructor(
     private val getAllPostsUseCase: GetAllPostsUseCase,
-    private val getCommentByIdUseCase: GetCommentByIdUseCase
+    private val getCommentByIdUseCase: GetCommentByIdUseCase,
+    private val addPostsUseCase: AddPostsUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(PostState())
@@ -125,5 +128,24 @@ class PostsViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+    fun addPost(post: ListPosts) {
+        viewModelScope.launch {
+            addPostsUseCase(post).onEach { result ->
+                when (result) {
+                    is Response.Loading -> {
+                        _state.update { it.copy(isLoading = true) }
+                    }
+
+                    is Response.Success -> {
+                        _state.update { it.copy(isLoading = false) }
+                    }
+
+                    is Response.Error -> {
+                        _state.update { it.copy(isLoading = false) }
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 }

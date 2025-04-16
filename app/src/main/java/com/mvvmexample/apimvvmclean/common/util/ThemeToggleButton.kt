@@ -1,4 +1,4 @@
-package com.mvvmexample.apimvvmclean.util
+package com.mvvmexample.apimvvmclean.common.util
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

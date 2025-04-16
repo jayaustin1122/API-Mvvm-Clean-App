@@ -6,7 +6,7 @@ import com.mvvmexample.apimvvmclean.data.modelDto.LoginRequestDto
 import com.mvvmexample.apimvvmclean.data.remote.LoginService
 import com.mvvmexample.apimvvmclean.domain.model.LoginResponse
 import com.mvvmexample.apimvvmclean.domain.repository.LoginRepository
-import com.mvvmexample.apimvvmclean.util.Response
+import com.mvvmexample.apimvvmclean.common.util.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

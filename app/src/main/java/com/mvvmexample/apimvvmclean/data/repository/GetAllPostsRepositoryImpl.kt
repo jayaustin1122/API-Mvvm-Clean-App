@@ -4,7 +4,7 @@ import com.mvvmexample.apimvvmclean.data.remote.PostService
 import com.mvvmexample.apimvvmclean.domain.model.ListPosts
 import com.mvvmexample.apimvvmclean.data.mapper.toDomainModel
 import com.mvvmexample.apimvvmclean.domain.repository.PostsRepository
-import com.mvvmexample.apimvvmclean.util.Response
+import com.mvvmexample.apimvvmclean.common.util.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -26,6 +26,21 @@ class GetAllPostsRepositoryImpl @Inject constructor(
             emit(Response.Error(message = "An unexpected error occurred"))
         } catch (e: IOException) {
             emit(Response.Error(message = "Couldn't reach server. Check your internet connection"))
+        }
+    }
+
+    override fun addPost(post: ListPosts): Flow<Response<ListPosts>> {
+        return flow {
+            emit(Response.Loading())
+
+            try {
+                val response = api.addPost(post)
+                emit(Response.Success(response.toDomainModel()))
+            } catch (e: HttpException) {
+                emit(Response.Error(message = "An unexpected error occurred"))
+            } catch (e: IOException) {
+                emit(Response.Error(message = "Couldn't reach server. Check your internet connection"))
+            }
         }
     }
 }

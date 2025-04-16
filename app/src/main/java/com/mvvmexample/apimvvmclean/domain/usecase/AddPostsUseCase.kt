@@ -6,10 +6,10 @@ import com.mvvmexample.apimvvmclean.common.util.Response
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetAllPostsUseCase @Inject constructor(
+class AddPostsUseCase @Inject constructor(
     private val repository: PostsRepository
 ) {
-    operator fun invoke(): Flow<Response<List<ListPosts>>> {
-        return repository.getAllPosts()
+    operator fun invoke(post: ListPosts): Flow<Response<ListPosts>> {
+        return repository.addPost(post)
     }
 }

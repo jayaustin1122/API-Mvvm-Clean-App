@@ -1,23 +1,16 @@
 package com.mvvmexample.apimvvmclean.presentation.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,13 +18,17 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mvvmexample.apimvvmclean.common.composables.EmptyView
+import com.mvvmexample.apimvvmclean.common.composables.ErrorView
+import com.mvvmexample.apimvvmclean.common.composables.LoadingView
+import com.mvvmexample.apimvvmclean.domain.model.ListPosts
+import com.mvvmexample.apimvvmclean.domain.model.Reactions
+import com.mvvmexample.apimvvmclean.presentation.ui.home.components.AddPost
 import com.mvvmexample.apimvvmclean.presentation.ui.home.components.AppBar
 import com.mvvmexample.apimvvmclean.presentation.ui.home.components.PostList
 
@@ -56,11 +53,25 @@ fun HomeScreen(
                 }
 
                 postsState.error.isNotBlank() -> {
-                    ErrorView(postsState.error)
+                    ErrorView(onClickRetry = { viewModel.getAllPosts() },postsState.error)
                 }
 
                 postsState.posts.isNotEmpty() -> {
                     postsState.comment?.let {
+                        AddPost(
+                            onAddPost = { title, body, tags ->
+                                val post = ListPosts(
+                                    id = System.currentTimeMillis(),
+                                    title = title,
+                                    body = body,
+                                    tags = tags,
+                                    reactions = Reactions(0, 0),
+                                    views = 0,
+                                    userID = 1L
+                                )
+                                viewModel.addPost(post)
+                            }
+                        )
                         PostList(
                             posts = postsState.posts,
                             selectedPostId = postsState.selectedPostId,
@@ -143,85 +154,4 @@ fun ActionButton(
     }
 }
 
-@Composable
-fun LoadingView() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            color = Color(0xFF1877F2)
-        )
-    }
-}
 
-@Composable
-fun ErrorView(errorMessage: String) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Icon(
-            imageVector = Icons.Default.Warning,
-            contentDescription = "Error",
-            tint = Color.Red,
-            modifier = Modifier.size(48.dp)
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            text = "Something went wrong",
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = errorMessage,
-            color = Color.Gray,
-            textAlign = androidx.compose.ui.text.style.TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = { /* Handle retry */ },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF1877F2)
-            )
-        ) {
-            Text("Retry")
-        }
-    }
-}
-
-@Composable
-fun EmptyView() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Icon(
-            imageVector = Icons.Default.Info,
-            contentDescription = "No posts",
-            tint = Color.Gray,
-            modifier = Modifier.size(48.dp)
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            text = "No posts found",
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
-        )
-    }
-}
