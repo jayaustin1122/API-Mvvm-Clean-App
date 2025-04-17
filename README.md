@@ -1,26 +1,21 @@
+# 🧑‍💻 Android MVVM App with Jetpack Compose
 
-An Android app using MVVM architecture with Jetpack Compose that fetches data from DummyJSON and ReqRes APIs.
-Tech Stack
+An Android app using **MVVM architecture** and **Jetpack Compose**, integrating data from the [DummyJSON](https://dummyjson.com) and [ReqRes](https://reqres.in) APIs.
 
-MVVM + Clean Architecture
-Jetpack Compose
-Hilt for dependency injection
-Retrofit for API calls
-Coil for image loading
+---
 
-Setup
+## 🛠 Tech Stack
 
-Clone the repository
-Open in Android Studio
-Run the app
+- **MVVM + Clean Architecture**
+- **Jetpack Compose** – Modern declarative UI
+- **Hilt** – Dependency Injection
+- **Retrofit** – REST API calls
+- **Coil** – Image loading
 
-Features
+---
 
-Modern UI with Jetpack Compose
-Multiple API integration
-Clean architecture implementation
+## 🚀 Setup Instructions
 
-APIs Used
-
-DummyJSON: https://dummyjson.com
-ReqRes: https://reqres.in
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/your-repo-name.git
