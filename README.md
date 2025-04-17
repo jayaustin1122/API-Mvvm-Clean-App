@@ -18,4 +18,4 @@ An Android app using **MVVM architecture** and **Jetpack Compose**, integrating 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
+   https://github.com/jayaustin1122/API-Mvvm-Clean-App.git
