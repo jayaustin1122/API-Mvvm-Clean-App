@@ -11,5 +11,5 @@ sealed class Screens(val route: String) {
     data object Home : Screens(Constants.HOME)
     data object Settings : Screens(Constants.SETTINGS)
     data object Profile : Screens(Constants.PROFILE)
-    data object Login : Screens(Constants.LOGIN)
+    data object Auth : Screens(Constants.AUTH)
 }

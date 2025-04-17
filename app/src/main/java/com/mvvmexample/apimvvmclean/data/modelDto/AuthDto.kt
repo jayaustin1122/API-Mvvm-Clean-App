@@ -17,3 +17,13 @@ data class LoginResponseDto(
     val accessToken: String,
     val refreshToken: String
 )
+
+data class RegisterRequestDto(
+    val email: String,
+    val password: String
+)
+
+data class RegisterResponseDto(
+    val id: Int,
+    val token: String
+)

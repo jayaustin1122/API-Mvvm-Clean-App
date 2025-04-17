@@ -84,7 +84,7 @@ fun HomeScreen(
                 }
 
                 else -> {
-                    EmptyView()
+                    EmptyView("No posts available please check your internet connection")
                 }
             }
         }

@@ -11,20 +11,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mvvmexample.apimvvmclean.common.util.dialog.AppDialog
+import com.mvvmexample.apimvvmclean.common.util.dialog.DialogData
+import com.mvvmexample.apimvvmclean.common.util.dialog.DialogUtils
 import com.mvvmexample.apimvvmclean.presentation.ui.profile.components.ProfileContent
 
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileViewModel = hiltViewModel()
+    viewModel: ProfileViewModel = hiltViewModel(),
+    onLogoutSuccess: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     val profileState by viewModel.profileState.collectAsState()
 
+    var showLogoutDialog by remember { mutableStateOf<DialogData?>(null) }
+    var isLoggingOut by remember { mutableStateOf(false) }
+
     LaunchedEffect(key1 = true) {
         viewModel.loadUserProfile()
+    }
+
+    LaunchedEffect(isLoggingOut) {
+        if (isLoggingOut) {
+            onLogoutSuccess()
+        }
     }
 
     Surface(
@@ -55,8 +71,29 @@ fun ProfileScreen(
 
             profileState.userProfile != null -> {
                 val user = profileState.userProfile!!
-                ProfileContent(user = user, onLogout = { viewModel.logout() })
+                ProfileContent(
+                    user = user,
+                    onLogout = {
+                        showLogoutDialog = DialogUtils.createLogoutConfirmationDialog(
+                            onConfirm = {
+                                viewModel.logout()
+                                isLoggingOut = true
+                                showLogoutDialog = null
+                            },
+                            onCancel = {
+                                showLogoutDialog = null
+                            }
+                        )
+                    }
+                )
             }
+        }
+
+        showLogoutDialog?.let {
+            AppDialog(
+                dialogData = it,
+                onDismissRequest = { showLogoutDialog = null }
+            )
         }
     }
 }

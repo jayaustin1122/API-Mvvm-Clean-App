@@ -18,6 +18,9 @@ class ProfileViewModel @Inject constructor(
     private val _profileState = MutableStateFlow(ProfileState())
     val profileState: StateFlow<ProfileState> = _profileState
 
+    private val _logoutState = MutableStateFlow(false)
+    val logoutState: StateFlow<Boolean> = _logoutState
+
     fun loadUserProfile() {
         viewModelScope.launch {
             try {
@@ -57,6 +60,22 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun logout() {
-        authPreferences.clearAuthToken()
+        viewModelScope.launch {
+            try {
+                authPreferences.clearAuthToken()
+                _logoutState.value = true
+                _profileState.value = ProfileState(
+                    isLoading = false,
+                    userProfile = null,
+                    error = ""
+                )
+            } catch (e: Exception) {
+                _profileState.value = ProfileState(
+                    isLoading = false,
+                    error = "Logout failed: ${e.message ?: "Unknown error"}"
+                )
+                _logoutState.value = false
+            }
+        }
     }
 }

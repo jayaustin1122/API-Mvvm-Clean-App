@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun EmptyView() {
+fun EmptyView(text: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -30,7 +30,7 @@ fun EmptyView() {
     ) {
         Icon(
             imageVector = Icons.Default.Info,
-            contentDescription = "No posts",
+            contentDescription = text,
             tint = Color.Gray,
             modifier = Modifier.size(48.dp)
         )
@@ -38,7 +38,7 @@ fun EmptyView() {
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "No posts found",
+            text = text,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
         )

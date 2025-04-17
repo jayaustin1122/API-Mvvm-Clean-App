@@ -24,7 +24,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.mvvmexample.apimvvmclean.presentation.ui.auth.LogInScreen
+import com.mvvmexample.apimvvmclean.presentation.ui.auth.AuthScreen
 import com.mvvmexample.apimvvmclean.presentation.ui.home.HomeScreen
 import com.mvvmexample.apimvvmclean.presentation.ui.profile.ProfileScreen
 import com.mvvmexample.apimvvmclean.presentation.ui.user_screen.UserDetailScreen
@@ -54,7 +54,7 @@ fun Navigation() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screens.Home.route,
+            startDestination = Screens.Auth.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screens.Users.route) {
@@ -87,14 +87,20 @@ fun Navigation() {
             }
 
             composable(Screens.Profile.route) {
-                ProfileScreen()
+                ProfileScreen(
+                    onLogoutSuccess = {
+                        navController.navigate(Screens.Auth.route) {
+                            popUpTo(Screens.Profile.route) { inclusive = true }
+                        }
+                    }
+                )
             }
 
-            composable(Screens.Login.route) {
-                LogInScreen(
+            composable(Screens.Auth.route) {
+                AuthScreen(
                     onLoginSuccess = {
                         navController.navigate(Screens.Home.route) {
-                            popUpTo(Screens.Login.route) { inclusive = true }
+                            popUpTo(Screens.Auth.route) { inclusive = true }
                         }
                     }
                 )

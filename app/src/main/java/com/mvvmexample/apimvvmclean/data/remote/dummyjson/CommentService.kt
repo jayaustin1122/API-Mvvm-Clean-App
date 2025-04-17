@@ -1,8 +1,6 @@
-package com.mvvmexample.apimvvmclean.data.remote
+package com.mvvmexample.apimvvmclean.data.remote.dummyjson
 
 import com.mvvmexample.apimvvmclean.data.mapper.CommentResponseDto
-import com.mvvmexample.apimvvmclean.data.modelDto.CommentDto
-import com.mvvmexample.apimvvmclean.data.modelDto.ListCommentDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 

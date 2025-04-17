@@ -1,4 +1,4 @@
-package com.mvvmexample.apimvvmclean.data.remote
+package com.mvvmexample.apimvvmclean.data.remote.dummyjson
 
 import com.mvvmexample.apimvvmclean.data.modelDto.LoginRequestDto
 import com.mvvmexample.apimvvmclean.data.modelDto.LoginResponseDto
