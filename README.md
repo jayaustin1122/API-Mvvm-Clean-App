@@ -1,4 +1,4 @@
-Android App
+
 An Android app using MVVM architecture with Jetpack Compose that fetches data from DummyJSON and ReqRes APIs.
 Tech Stack
 
