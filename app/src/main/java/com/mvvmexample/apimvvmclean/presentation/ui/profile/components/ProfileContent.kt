@@ -35,7 +35,8 @@ import com.mvvmexample.apimvvmclean.data.modelDto.LoginResponseDto
 @Composable
 fun ProfileContent(
     user: LoginResponseDto,
-    onLogout: () -> Unit
+    onLogout: () -> Unit,
+    onEditClick: (LoginResponseDto) -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -87,8 +88,10 @@ fun ProfileContent(
                     val initials = when {
                         user.firstName.isNotBlank() && user.lastName.isNotBlank() ->
                             "${user.firstName.first()}${user.lastName.first()}"
+
                         user.username.isNotBlank() ->
                             user.username.first().toString()
+
                         else -> "?"
                     }
 
@@ -106,7 +109,8 @@ fun ProfileContent(
 
         // User name
         if (user.firstName.isNotBlank() && user.firstName != "null" &&
-            user.lastName.isNotBlank() && user.lastName != "null") {
+            user.lastName.isNotBlank() && user.lastName != "null"
+        ) {
             Text(
                 text = "${user.firstName} ${user.lastName}",
                 style = MaterialTheme.typography.headlineSmall,
@@ -159,7 +163,7 @@ fun ProfileContent(
 
         // Edit profile button
         Button(
-            onClick = { /* TODO: Handle edit profile */ },
+            onClick = { onEditClick(user) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),

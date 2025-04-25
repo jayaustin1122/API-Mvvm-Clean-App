@@ -9,6 +9,7 @@ object  Constants {
     const val SETTINGS = "settings"
     const val PROFILE = "profile"
     const val AUTH = "auth"
+    const val EDIT_PROFILE = "edit_profile"
 
     //Implementations
     const val ERROR_OCCURRED = "An unexpected error occurred"

@@ -20,12 +20,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mvvmexample.apimvvmclean.common.util.dialog.AppDialog
 import com.mvvmexample.apimvvmclean.common.util.dialog.DialogData
 import com.mvvmexample.apimvvmclean.common.util.dialog.DialogUtils
+import com.mvvmexample.apimvvmclean.data.modelDto.LoginResponseDto
+import com.mvvmexample.apimvvmclean.domain.model.User
 import com.mvvmexample.apimvvmclean.presentation.ui.profile.components.ProfileContent
 
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
-    onLogoutSuccess: () -> Unit
+    onLogoutSuccess: () -> Unit,
+    onEditClick: (LoginResponseDto) -> Unit,
 ) {
     val scrollState = rememberScrollState()
     val profileState by viewModel.profileState.collectAsState()
@@ -70,7 +73,8 @@ fun ProfileScreen(
             }
 
             profileState.userProfile != null -> {
-                val user = profileState.userProfile!!
+                val user =
+                    profileState.userProfile ?: LoginResponseDto(0, "", "", "", "", "", "", "", "")
                 ProfileContent(
                     user = user,
                     onLogout = {
@@ -84,6 +88,9 @@ fun ProfileScreen(
                                 showLogoutDialog = null
                             }
                         )
+                    },
+                    onEditClick = {
+                        onEditClick(user)
                     }
                 )
             }

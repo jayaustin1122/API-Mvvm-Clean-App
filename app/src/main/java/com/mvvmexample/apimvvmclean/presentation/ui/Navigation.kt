@@ -1,5 +1,6 @@
 package com.mvvmexample.apimvvmclean.presentation.ui
 
+import android.os.Bundle
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
@@ -24,8 +25,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.gson.Gson
+import com.mvvmexample.apimvvmclean.data.modelDto.LoginResponseDto
 import com.mvvmexample.apimvvmclean.presentation.ui.auth.AuthScreen
 import com.mvvmexample.apimvvmclean.presentation.ui.home.HomeScreen
+import com.mvvmexample.apimvvmclean.presentation.ui.profile.EditProfileScreen
 import com.mvvmexample.apimvvmclean.presentation.ui.profile.ProfileScreen
 import com.mvvmexample.apimvvmclean.presentation.ui.user_screen.UserDetailScreen
 import com.mvvmexample.apimvvmclean.presentation.ui.user_screen.UsersScreen
@@ -92,6 +96,9 @@ fun Navigation() {
                         navController.navigate(Screens.Auth.route) {
                             popUpTo(Screens.Profile.route) { inclusive = true }
                         }
+                    },
+                    onEditClick = { user ->
+                        navController.navigate(Screens.EditProfile.createRoute(editProfile = user))
                     }
                 )
             }
@@ -103,6 +110,23 @@ fun Navigation() {
                             popUpTo(Screens.Auth.route) { inclusive = true }
                         }
                     }
+                )
+            }
+
+            composable(
+                route = "${Screens.EditProfile.route}?user={user}",
+                arguments = listOf(
+                    navArgument("user") {
+                        type = NavType.StringType
+                    }
+                )
+            ) { backStackEntry ->
+                val json = backStackEntry.arguments?.getString("user")
+                val user = Gson().fromJson(json, LoginResponseDto::class.java)
+
+                EditProfileScreen(
+                    user = user,
+                    onNavigateBack = { navController.popBackStack() }
                 )
             }
 
